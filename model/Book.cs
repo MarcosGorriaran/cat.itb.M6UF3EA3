@@ -1,20 +1,24 @@
 ﻿using cat.itb.M6UF3EA3.model;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 
 namespace cat.itb.M6UF3EA1.Models;
 public class Book : Model<Book>
 {
     public int _id { get; set; }
-    public String title { get; set; }
-    public String isbn { get; set; }
+    public string title { get; set; }
+    public string isbn { get; set; }
     public int pageCount { get; set; }
     public BSONDate publishedDate { get; set; }
-    public String thumbnailUrl { get; set; }
-    public String shortDescription { get; set; }
-    public String longDescription { get; set; }
-    public String status { get; set; }
-    public List<String> authors { get; set; }
-    public List<String> categories { get; set; }
+    [BsonIgnoreIfNull]
+    public string thumbnailUrl { get; set; }
+    [BsonIgnoreIfNull]
+    public string shortDescription { get; set; }
+    [BsonIgnoreIfNull]
+    public string longDescription { get; set; }
+    public string status { get; set; }
+    public List<string> authors { get; set; }
+    public List<string> categories { get; set; }
     public override string ToString()
     {
         return 

@@ -18,6 +18,12 @@ public class Driver
             {"2","Drop collection"},
             {"3A","Show book ISBN"},
             {"3B","Show ordered books"},
+            {"3C","Show Danno Ferrin books"},
+            {"3D","Show specific Java books"},
+            {"3E", "Show Books from Charlie or Robi"},
+            {"3F", "Show Java books without Vikram"},
+            {"3G", "Show cheapest product"},
+            {"3H", "Show stock sum"},
             {ExitOption,ExitText}
         }, AskValue);
         string option;
@@ -45,6 +51,21 @@ public class Driver
                     break;
                 case "3B":
                     Console.WriteLine(EA3CRUD.ACT3BGetOrderedList());
+                    break;
+                case "3C":
+                    Console.WriteLine(EA3CRUD.ACT3CShowDannoBooks("Danno Ferrin"));
+                    break;
+                case "3E":
+                    Console.WriteLine(EA3CRUD.ACT3EShowBooks("Charlie Collins", "Robio Sen"));
+                    break;
+                case "3F":
+                    Console.WriteLine(EA3CRUD.ACT3FDiscardBooks("Java","'Vikram Goyal'"));
+                    break;
+                case "3G":
+                    Console.WriteLine(EA3CRUD.ACT3GFindLowestPriceProduct());
+                    break;
+                case "3H":
+                    Console.WriteLine(EA3CRUD.ACT3HFindSumStocks());
                     break;
             }
         } while (option != ExitOption);

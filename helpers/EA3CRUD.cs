@@ -54,7 +54,7 @@ namespace cat.itb.M6UF3EA3.helpers
         {
             CRUDMongoDB<Book> crud = new CRUDMongoDB<Book>("book");
             string resultMsg = string.Empty;
-            IEnumerable<Book> books = crud.Select(Builders<Book>.Filter.ElemMatch(element => element.authors, searchAuthor));
+            IEnumerable<Book> books = crud.Select(Builders<Book>.Filter.Eq(element => element.authors, new List<string>() { searchAuthor }));
             foreach (Book book in books)
             {
                 resultMsg += $"Títol: {book.title}" + Environment.NewLine +
@@ -109,13 +109,28 @@ namespace cat.itb.M6UF3EA3.helpers
         {
             CRUDMongoDB<Book> crud = new CRUDMongoDB<Book>("book");
             string resultMsg = string.Empty;
-            IEnumerable<Book> books = crud.Select(Builders<Book>.Filter.Not(Builders<Book>.Filter.ElemMatch(element=>element.authors, discardAuthor)) &
-                Builders<Book>.Filter.ElemMatch(element=>element.categories,searchCategory)).OrderBy(element=>element.title);
+            IEnumerable<Book> books = crud.Select(Builders<Book>.Filter.Not(Builders<Book>.Filter.Eq(element=>element.authors, new List<string>(){discardAuthor})) &
+                Builders<Book>.Filter.Eq(element=>element.categories,new List<string>() { searchCategory })).OrderBy(element=>element.title);
             foreach(Book book in books)
             {
                 resultMsg += book + Environment.NewLine;
             }
             return resultMsg;
+        }
+        public static string ACT3GFindLowestPriceProduct()
+        {
+            CRUDMongoDB<Product> crud = new CRUDMongoDB<Product>("product");
+            string resultMsg = string.Empty;
+            IEnumerable<Product> products = crud.Select();
+
+            Product product = products.Where(element=>element.price==products.Min(element=>element.price)).First();
+            return $"Nom: {product.name}"+Environment.NewLine+
+                $"Price: {product.price}"+Environment.NewLine;
+        }
+        public static string ACT3HFindSumStocks()
+        {
+            CRUDMongoDB<Product> crud = new CRUDMongoDB<Product>("product");
+            return $"sum: "+crud.Select().Sum(element=>element.stock)+Environment.NewLine;
         }
     }
         
